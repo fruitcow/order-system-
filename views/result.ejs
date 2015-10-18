@@ -1,0 +1,52 @@
+<html>
+
+<head>
+<meta charset='utf-8'>
+    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jspdf.js"></script>
+    <script type="text/javascript" src="js/libs/Deflate/adler32cs.js"></script>
+    <script type="text/javascript" src="js/libs/FileSaver.js/FileSaver.js"></script>
+    <script type="text/javascript" src="js/libs/Blob.js/BlobBuilder.js"></script>
+    <script type="text/javascript" src="js/jspdf.plugin.addimage.js"></script>
+    <script type="text/javascript" src="js/jspdf.plugin.standard_fonts_metrics.js"></script>
+    <script type="text/javascript" src="js/jspdf.plugin.split_text_to_size.js"></script>
+    <script type="text/javascript" src="js/jspdf.plugin.from_html.js"></script>
+    <script type="text/javascript" src="js/basic.js"></script>
+  <script type="text/javascript">
+
+$(function () {
+
+    var specialElementHandlers = {
+        '#editor': function (element,renderer) {
+            return true;
+        }
+    };
+ $('#cmd').click(function () {
+        var doc = new jsPDF();
+        doc.fromHTML($('#target').html(), 15, 15, {
+            'width': 170,'elementHandlers': specialElementHandlers
+        });
+        doc.save('order.pdf');
+    });  
+});
+</script>
+</head>
+<body>
+<table id="target"border="2"  width="60%">
+<tr>
+<td>姓名:</td>
+<td><%= name %></td>
+<td>電話:</td>
+<td><%= phone %></td>
+<td><%= delive %></td>
+</tr>
+<tr>
+<td>地址:</td>
+<td colspan='5'><%= address %></td>
+</tr>
+<td>點餐內容:</td>
+<td colspan='5'><%= content %></td>
+</table>
+<button id="cmd">存PDF</button>
+</body>
+</html>
